@@ -14,17 +14,6 @@ router.get('/', (req, res) => {
         })
 })
 
-// gets specific task
-router.get('/:id', (req, res) => {
-    Tasks.getTaskById(req.params.id)
-        .then(task => {
-            res.status(201).json(task)
-        })
-        .catch(() => {
-            res.status(500).json({ message: 'Task could not be retrieved.'})
-        })
-})
-
 // posts a new task
 router.post('/', (req, res) => {
     Tasks.addTask(req.body)
@@ -69,6 +58,23 @@ router.delete('/:id', (req, res) => {
         })
         .catch(() => {
             res.status(404).json({ message: 'Could not find task with given id' })
+        })
+})
+
+// gets specific task with contexts
+router.get('/:id', (req, res) => {
+    Tasks.getTaskById(req.params.id)
+        .then(task => {
+            Tasks.getContextsForTaskId(req.params.id)
+                .then(contexts => {
+                    res.status(201).json({ ...task, contexts})
+                })
+                .catch(() => {
+                    res.status(500).json({ message: 'Contexts could not be retrieved.'})
+                })
+        })
+        .catch(() => {
+            res.status(500).json({ message: 'Task could not be retrieved.'})
         })
 })
 

@@ -6,7 +6,8 @@ module.exports = {
     getTasksByProjectId,
     updateTask,
     getTaskById,
-    removeTask
+    removeTask,
+    getContextsForTaskId
 }
 
 // gets all tasks and show project name and product description
@@ -52,4 +53,12 @@ function updateTask(updatedTask, id) {
 function removeTask(id) {
     return db('tasks')
         .where({ id }).del()
+}
+
+// get contexts for a specific task
+function getContextsForTaskId(task_id) {
+    return db.select('contexts.id', 'contexts.name', 'contexts.currently_true') 
+        .from('tasks_contexts')
+        .join('contexts', 'tasks_contexts.context_id', 'contexts.id')
+        .where({task_id})
 }
