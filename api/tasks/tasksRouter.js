@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
         .then(tasks => {
             res.status(201).json(tasks)
         })
-        .catch(err => {
+        .catch(() => {
             res.status(500).json({ message: 'Tasks could not be retrieved.'})
         })
 })
