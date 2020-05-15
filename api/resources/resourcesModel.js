@@ -2,7 +2,8 @@ const db = require('../../data/dbConfig')
 
 module.exports = {
     getResources,
-    addResource
+    addResource,
+    getResourcesByProjectId
 }
 
 // gets all resources
@@ -24,4 +25,12 @@ function addResource(newResource){
         .then(id => {
             return getResourceById(id[0])
         })
+}
+
+// get resource by project id
+function getResourcesByProjectId(project_id) {
+    return db.select('resources.id', 'resources.name', 'resources.description') 
+        .from('projects_resources')
+        .join('resources', 'projects_resources.resource_id', 'resources.id')
+        .where({project_id})
 }

@@ -2,7 +2,8 @@ const db = require('../../data/dbConfig')
 
 module.exports = {
     getTasks,
-    addTask
+    addTask,
+    getTasksByProjectId
 }
 
 // gets all tasks and show project name and product description
@@ -12,7 +13,7 @@ function getTasks(){
         .join('projects', 'tasks.project_id', 'projects.id')
 }
 
-// getstask by id
+// gets task by id
 function getTaskById(id){
     return db('tasks')
         .where({id})
@@ -26,4 +27,10 @@ function addTask(newTask){
         .then(id => {
             return getTaskById(id[0])
         })
+}
+
+// gets tasks for a specific project
+function getTasksByProjectId(project_id) {
+    return db('tasks')
+        .where({ project_id })
 }

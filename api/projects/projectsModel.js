@@ -2,7 +2,8 @@ const db = require('../../data/dbConfig')
 
 module.exports = {
     getProjects,
-    addProject
+    addProject,
+    getProjectById
 }
 
 // gets all projects
