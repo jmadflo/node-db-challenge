@@ -40,11 +40,19 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
 
+Relational databases are databases that organize data in the form of tables of records (rows). The columns of the tables are properties of the records. Aternatively, SQL is a database management language for relational databases that allows us to create relational databases, supply them with information to store, and retrieve information from them.
+
 - [ ] Why do tables need a `primary key`?
+
+A primary key is a property (column) the allows us to uniquely identify records in a table. Each record must have a unique primary key. If there were no primary keys in a table then there would be no way of specifically refering to a specific record in that table.
 
 - [ ] What is the name given to a table column that references the primary key on another table.
 
+Foreign key
+
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
+
+We need an intermediary table to document many to many relationships. This table and its properties exist solely to describe the many to many relationship instead of to describe its own unique type of information like other tables.
 
 ## Minimum Viable Product
 
