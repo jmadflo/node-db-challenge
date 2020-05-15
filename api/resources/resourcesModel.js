@@ -3,7 +3,7 @@ const db = require('../../data/dbConfig')
 module.exports = {
     getResources,
     addResource,
-    getResourcesByProjectId
+    getResourcesByProjectId,
 }
 
 // gets all resources

@@ -30,6 +30,7 @@ router.post('/', (req, res) => {
 // get project by id including its associated resources and tasks
 
 router.get('/:id', (req, res) => {
+    console.log(req.params.id)
     // get project
     Projects.getProjectById(req.params.id)
         .then(project => {
@@ -55,6 +56,44 @@ router.get('/:id', (req, res) => {
             res.status(500).json({ message: `The project with an id of ${req.params.id} could not be retrieved` })
         })
     })
+
+// updates project
+router.put('/:id', (req, res) => {
+    Projects.getProjectById(req.params.id)
+        .then(project => {
+            if (project) {
+                console.log(project)
+                Projects.updateProject(req.body, req.params.id)
+                    .then(updatedProject => {
+                        console.log(updatedProject)
+                        res.status(201).json(updatedProject)
+                    })
+                    .catch (() => {
+                        res.status(500).json({ message: 'Failed to update project' })
+                    })
+            } else {
+                res.status(500).json({ message: 'Failed to update project' })
+            }
+        })
+        .catch (() => {
+            res.status(404).json({ message: 'Could not find project with given id'  })
+        })
+})
+
+// deletes project
+router.delete('/:id', (req, res) => {
+    Projects.remove(req.params.id)
+        .then(deleted => {
+            if (deleted) {
+                res.json({ message: 'Project was deleted' })
+            } else {
+                res.status(500).json({ message: 'Failed to delete project' })
+            }
+        })
+        .catch(() => {
+            res.status(404).json({ message: 'Could not find project with given id' })
+        })
+})
 
 
 module.exports = router

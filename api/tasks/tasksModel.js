@@ -3,7 +3,10 @@ const db = require('../../data/dbConfig')
 module.exports = {
     getTasks,
     addTask,
-    getTasksByProjectId
+    getTasksByProjectId,
+    updateTask,
+    getTaskById,
+    removeTask
 }
 
 // gets all tasks and show project name and product description
@@ -33,4 +36,20 @@ function addTask(newTask){
 function getTasksByProjectId(project_id) {
     return db('tasks')
         .where({ project_id })
+}
+
+// updates task
+function updateTask(updatedTask, id) {
+    return db('tasks')
+        .where({ id })
+            .update(updatedTask)
+                .then(() => {
+                    return getTaskById(id)
+                })
+}
+
+// removes task
+function removeTask(id) {
+    return db('tasks')
+        .where({ id }).del()
 }
